@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Oct 24 11:36:36 2017
-
 @author: fs
 """
 import cv2

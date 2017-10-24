@@ -1,12 +1,8 @@
 import cv2
-
 model = cv2.imread('s1.jpg')
 logo = cv2.imread('test.png')
-
 rows, cols,_ = logo.shape
-
 gray_logo = cv2.cvtColor(logo,cv2.COLOR_BGR2GRAY)
-
 ret, mask = cv2.threshold(gray_logo,175,255,cv2.THRESH_BINARY) #get binary image
 mask_inv = cv2.bitwise_not(mask)                             #get inv_binary image
 

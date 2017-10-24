@@ -6,7 +6,7 @@ Created on Tue Oct 24 11:36:36 2017
 """
 import cv2
 
-def camera(file, SaveVideo):
+def camera_(file, SaveVideo):
     camera = cv2.VideoCapture(file)
 
     cv2.namedWindow('', 0)
@@ -42,4 +42,4 @@ def camera(file, SaveVideo):
     
     
     
-camera('test.mp4',True)
+camera_('test.mp4',True)

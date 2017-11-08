@@ -1,10 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov  8 15:57:11 2017
+
+@author: fs
+"""
+
 import cv2
 import numpy as np
 import matplotlib.pylab as plt
 
 MIN_MATCH_COUNT = 10
 img1 = cv2.imread('images/111.jpg')          # queryImage
-img2 = cv2.imread('images/11.jpg')          # trainImage
+img2 = cv2.imread('images/10.jpg')          # trainImage
 
 def SIFT():
     # Initiate SIFT detector
@@ -23,8 +31,8 @@ def SIFT():
           
     if len(good)>MIN_MATCH_COUNT:
         # 获取关键点的坐标
-        src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
-        dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
+        src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ])
+        dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ])
         # 第三个参数 Method used to computed a homography matrix. The following methods are possible:
         #0 - a regular method using all the points
         #CV_RANSAC - RANSAC-based robust method
@@ -50,15 +58,17 @@ def SIFT():
         
     draw_params = dict(matchColor = (0,255,0), # draw matches in green color
     singlePointColor = None,
-    matchesMask = matchesMask,       # draw only inliers dots
+    matchesMask = matchesMask[:100],       # draw only inliers dots
     flags = 2)
-    img3 = cv2.drawMatches(img1,kp1,img2,kp2,good,None,**draw_params)
+    '''
+    只查看前100个特征匹配点
+    '''
+    img3 = cv2.drawMatches(img1,kp1,img2,kp2,good[:100],None,**draw_params)
 
     '''
     cv2.drawMatchesKnn and cv2.drawMatches is different
     '''
-#    good = np.expand_dims(good,1)
-#    img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good[:20],None, flags=2)
+
     return img3
     
 if __name__ == '__main__':
